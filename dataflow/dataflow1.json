@@ -12,7 +12,15 @@
 					"name": "moviejsonsource"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_movies_blob",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
@@ -23,7 +31,14 @@
 				"     container: 'moviecontainer',",
 				"     documentForm: 'arrayOfDocuments',",
 				"     unquotedColumnNames: true,",
-				"     wildcardPaths:['*.json']) ~> moviejsonsource"
+				"     wildcardPaths:['*.json']) ~> moviejsonsource",
+				"moviejsonsource sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          movie as (Id as integer, Title as string, Overview as string, Tagline as string, Budget as double, Revenue as double, ImdbUrl as string, TmdbUrl as string, PosterUrl as string, BackdropUrl as string, OriginalLanguage as string, ReleaseDate as string, RunTime as integer, Price as double, CreatedDate as string, UpdatedDate as string, UpdatedBy as string, CreatedBy as string, genres as (id as integer, name as string)[])[]",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
