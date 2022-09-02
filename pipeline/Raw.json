@@ -4,8 +4,8 @@
 		"description": "Raw to Bronze",
 		"activities": [
 			{
-				"name": "raw_to_bronze",
-				"type": "DatabricksNotebook",
+				"name": "dataflow1",
+				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -16,11 +16,15 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Repos/acharya.david@outlook.com/Antra_SEP_DataEngineer/ETL Process/raw_to_bronze"
-				},
-				"linkedServiceName": {
-					"referenceName": "AzureDatabricks1",
-					"type": "LinkedServiceReference"
+					"dataflow": {
+						"referenceName": "dataflow1",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
 				}
 			}
 		],
