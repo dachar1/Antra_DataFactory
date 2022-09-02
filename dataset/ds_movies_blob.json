@@ -1,5 +1,5 @@
 {
-	"name": "Json1",
+	"name": "ds_movies_blob",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "MovieBlob",
