@@ -3,53 +3,13 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Raw",
+				"name": "Ingest_Raw",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
 						"referenceName": "Ingest_Raw",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
-				}
-			},
-			{
-				"name": "Bronze",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Raw",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "Bronze",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
-				}
-			},
-			{
-				"name": "Silver",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Bronze",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "Silver",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
