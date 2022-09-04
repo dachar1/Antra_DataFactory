@@ -1,0 +1,19 @@
+{
+	"name": "DestinationDataset_ft5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MovieBlob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "ingestrawmovie",
+				"container": "moviecontainer"
+			}
+		},
+		"schema": {}
+	}
+}
