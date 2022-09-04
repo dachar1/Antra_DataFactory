@@ -12,7 +12,15 @@
 					"name": "movieraw"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "bronze_table",
+						"type": "DatasetReference"
+					},
+					"name": "bronzetable"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
@@ -23,7 +31,12 @@
 				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
 				"     fileList: true,",
-				"     documentForm: 'arrayOfDocuments') ~> movieraw"
+				"     documentForm: 'arrayOfDocuments') ~> movieraw",
+				"movieraw sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> bronzetable"
 			]
 		}
 	}
