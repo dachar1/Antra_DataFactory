@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "Ingest_Raw",
+						"referenceName": "raw-to-bronze",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
