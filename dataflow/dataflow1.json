@@ -1,0 +1,29 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "MovieBlob",
+						"type": "LinkedServiceReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     limit: 100,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'json',",
+				"     container: 'moviecontainer',",
+				"     documentForm: 'arrayOfDocuments',",
+				"     wildcardPaths:['*']) ~> source1"
+			]
+		}
+	}
+}
