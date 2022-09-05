@@ -14,11 +14,11 @@
 			],
 			"sinks": [
 				{
-					"dataset": {
-						"referenceName": "bronze_table",
-						"type": "DatasetReference"
+					"linkedService": {
+						"referenceName": "MovieBlob",
+						"type": "LinkedServiceReference"
 					},
-					"name": "sink1"
+					"name": "moviebronze"
 				}
 			],
 			"transformations": [
@@ -44,9 +44,18 @@
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
 				"flatten1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'parquet',",
+				"     format: 'delta',",
+				"     container: 'moviecontainer',",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true) ~> moviebronze"
 			]
 		}
 	}
