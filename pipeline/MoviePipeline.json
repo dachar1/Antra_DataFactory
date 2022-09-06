@@ -14,46 +14,6 @@
 					},
 					"waitOnCompletion": true
 				}
-			},
-			{
-				"name": "Bronze",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Ingest_Raw",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "Bronze",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
-				}
-			},
-			{
-				"name": "Silver",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Bronze",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "Silver",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
-				}
 			}
 		],
 		"annotations": []

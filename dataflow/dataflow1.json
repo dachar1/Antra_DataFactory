@@ -14,18 +14,18 @@
 			],
 			"sinks": [
 				{
-					"linkedService": {
+					"dataset": {
+						"referenceName": "bronzetable",
+						"type": "DatasetReference"
+					},
+					"name": "bronzetable",
+					"rejectedDataLinkedService": {
 						"referenceName": "MovieBlob",
 						"type": "LinkedServiceReference"
-					},
-					"name": "moviebronze"
+					}
 				}
 			],
-			"transformations": [
-				{
-					"name": "flatten1"
-				}
-			],
+			"transformations": [],
 			"scriptLines": [
 				"source(output(",
 				"          movie as (Id as integer, Title as string, Overview as string, Tagline as string, Budget as double, Revenue as double, ImdbUrl as string, TmdbUrl as string, PosterUrl as string, BackdropUrl as string, OriginalLanguage as string, ReleaseDate as string, RunTime as integer, Price as double, CreatedDate as string, UpdatedDate as string, UpdatedBy as string, CreatedBy as string, genres as (id as integer, name as string)[])[]",
@@ -36,18 +36,11 @@
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'arrayOfDocuments',",
 				"     wildcardPaths:['*']) ~> source1",
-				"source1 foldDown(unroll(movie, movie),",
-				"     mapColumn(",
-				"          movie",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1",
-				"flatten1 sink(allowSchemaDrift: true,",
+				"source1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
-				"     container: 'moviecontainer',",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> moviebronze"
+				"     skipDuplicateMapOutputs: true) ~> bronzetable"
 			]
 		}
 	}

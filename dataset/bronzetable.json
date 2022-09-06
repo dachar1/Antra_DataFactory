@@ -1,0 +1,19 @@
+{
+	"name": "bronzetable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MovieBlob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "moviecontainer"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
