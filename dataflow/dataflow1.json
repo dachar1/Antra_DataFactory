@@ -12,35 +12,46 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [
+			"sinks": [],
+			"transformations": [
 				{
-					"dataset": {
-						"referenceName": "bronzetable",
-						"type": "DatasetReference"
-					},
-					"name": "bronzetable",
-					"rejectedDataLinkedService": {
-						"referenceName": "MovieBlob",
-						"type": "LinkedServiceReference"
-					}
+					"name": "flatten1"
 				}
 			],
-			"transformations": [],
 			"scriptLines": [
 				"source(output(",
 				"          movie as (Id as integer, Title as string, Overview as string, Tagline as string, Budget as double, Revenue as double, ImdbUrl as string, TmdbUrl as string, PosterUrl as string, BackdropUrl as string, OriginalLanguage as string, ReleaseDate as string, RunTime as integer, Price as double, CreatedDate as string, UpdatedDate as string, UpdatedBy as string, CreatedBy as string, genres as (id as integer, name as string)[])[]",
 				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: true,",
 				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'arrayOfDocuments',",
 				"     wildcardPaths:['*']) ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     format: 'parquet',",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> bronzetable"
+				"source1 foldDown(unroll(movie),",
+				"     mapColumn(",
+				"          Id = movie.Id,",
+				"          Title = movie.Title,",
+				"          Overview = movie.Overview,",
+				"          Tagline = movie.Tagline,",
+				"          Budget = movie.Budget,",
+				"          Revenue = movie.Revenue,",
+				"          ImdbUrl = movie.ImdbUrl,",
+				"          TmdbUrl = movie.TmdbUrl,",
+				"          PosterUrl = movie.PosterUrl,",
+				"          BackdropUrl = movie.BackdropUrl,",
+				"          OriginalLanguage = movie.OriginalLanguage,",
+				"          ReleaseDate = movie.ReleaseDate,",
+				"          RunTime = movie.RunTime,",
+				"          Price = movie.Price,",
+				"          CreatedDate = movie.CreatedDate,",
+				"          UpdatedDate = movie.UpdatedDate,",
+				"          UpdatedBy = movie.UpdatedBy,",
+				"          CreatedBy = movie.CreatedBy,",
+				"          genres = movie.genres",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten1"
 			]
 		}
 	}
