@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "part-00000-6c577834-8553-47a9-bf11-6352a36ef157-c000.snappy.parquet",
 				"container": "moviecontainer"
 			},
 			"compressionCodec": "snappy"
